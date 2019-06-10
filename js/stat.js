@@ -29,13 +29,13 @@
     return maxElement;
   };
 
-  var getColorAndOpacity = function (ctx, color, opacity) {
+  var setCanvasProperties = function (ctx, color, opacity) {
     ctx.fillStyle = color;
     ctx.globalAlpha = opacity;
   };
 
   var renderCloud = function (ctx, x, y, color, opacity) {
-    getColorAndOpacity(ctx, color, opacity);
+    setCanvasProperties(ctx, color, opacity);
     ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
   };
 
@@ -46,7 +46,7 @@
     } else {
       testedText = text;
     }
-    getColorAndOpacity(ctx, color, opacity);
+    setCanvasProperties(ctx, color, opacity);
     ctx.textBaseline = baseLine;
     ctx.fillText(testedText, x, y);
   };
@@ -89,9 +89,9 @@
       renderText(ctx, times[i], timeX, timeY, '#000', 1, 'bottom');
 
       if (players[i] === 'Вы') {
-        getColorAndOpacity(ctx, 'rgba(255, 0, 0, 1)', 1);
+        setCanvasProperties(ctx, 'rgba(255, 0, 0, 1)', 1);
       } else {
-        getColorAndOpacity(ctx, 'rgb(0, 0, 255)', Math.random());
+        setCanvasProperties(ctx, 'rgb(0, 0, 255)', Math.random());
       }
 
       renderBar(ctx, barFinishX, barFinishY, barHeightOfTime);
