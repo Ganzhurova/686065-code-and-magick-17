@@ -6,15 +6,6 @@
   var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
   var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
-  var userDialog = document.querySelector('.setup');
-  var similarElement = userDialog.querySelector('.setup-similar');
-  var similarListElement = similarElement.querySelector('.setup-similar-list');
-  var similarWizardTemplate = document.querySelector('#similar-wizard-template')
-      .content
-      .querySelector('.setup-similar-item');
-  var wizards = [];
-  var numberWizards = 4;
-
   var removeClass = function (element, removeClassName) {
     element.classList.remove(removeClassName);
   };
@@ -43,8 +34,8 @@
     return arr;
   };
 
-  var renderWizard = function (wizard) {
-    var wizardElement = similarWizardTemplate.cloneNode(true);
+  var renderWizard = function (wizard, templateWizard) {
+    var wizardElement = templateWizard.cloneNode(true);
 
     wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
     wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
@@ -53,19 +44,38 @@
     return wizardElement;
   };
 
-  var showSimilarWizards = function () {
+  var showSetupBlock = function (element) {
+    removeClass(element, 'hidden');
+  };
+
+  var showSimilarWizards = function (element) {
+    var similarElement = element.querySelector('.setup-similar');
+    var similarListElement = similarElement.querySelector('.setup-similar-list');
+    var similarWizardTemplate = document.querySelector('#similar-wizard-template')
+        .content
+        .querySelector('.setup-similar-item');
+
     var fragment = document.createDocumentFragment();
+
+    var wizards = [];
+    var numberWizards = 4;
 
     wizards = getWizardsArr(numberWizards, wizards);
 
     for (var i = 0; i < wizards.length; i++) {
-      fragment.appendChild(renderWizard(wizards[i]));
+      fragment.appendChild(renderWizard(wizards[i], similarWizardTemplate));
     }
     similarListElement.appendChild(fragment);
 
     removeClass(similarElement, 'hidden');
   };
 
-  removeClass(userDialog, 'hidden');
-  showSimilarWizards();
+  var initModule = function () {
+    var userDialog = document.querySelector('.setup');
+
+    showSetupBlock(userDialog);
+    showSimilarWizards(userDialog);
+  };
+
+  initModule();
 })();
