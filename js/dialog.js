@@ -3,9 +3,6 @@
 (function () {
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
-  var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-  var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
-  var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
   var removeClass = function (element, removeClassName) {
     element.classList.remove(removeClassName);
@@ -13,19 +10,6 @@
 
   var addClass = function (element, addClassName) {
     element.classList.add(addClassName);
-  };
-
-  var getIndexAscending = function (arr) {
-    var i = 0;
-    var getIndex = function () {
-      if (i === arr.length - 1) {
-        i = 0;
-        return i;
-      } else {
-        return ++i;
-      }
-    };
-    return getIndex;
   };
 
   var onPopupEscPress = function (evt, element, input) {
@@ -47,14 +31,6 @@
     document.removeEventListener('keydown', function (evt) {
       onPopupEscPress(evt, element, input);
     });
-  };
-
-  var selectWizardAttributeColor = function (arr, element, index, propertyCSS, name) {
-    var color = arr[index];
-    var input = document.querySelector('input[name=' + name + ']');
-
-    element.style = propertyCSS + ': ' + color;
-    input.value = color;
   };
 
   var validationUserNameInput = function (elUserNameInput) {
@@ -132,15 +108,6 @@
 
     var userNameInput = userDialog.querySelector('.setup-user-name');
 
-    var wizardCoat = userDialog.querySelector('.setup-wizard .wizard-coat');
-    var indexWizardCoat = getIndexAscending(COAT_COLORS);
-
-    var wizardEyes = userDialog.querySelector('.setup-wizard .wizard-eyes');
-    var indexWizardEyes = getIndexAscending(EYES_COLORS);
-
-    var wizardFireball = userDialog.querySelector('.setup-fireball-wrap');
-    var indexWizardFireball = getIndexAscending(FIREBALL_COLORS);
-
     var dialogHandler = userDialog.querySelector('.upload');
 
     var shopElement = document.querySelector('.setup-artifacts-shop');
@@ -173,18 +140,6 @@
 
     userNameInput.addEventListener('input', function (evt) {
       checkUserNameInput(evt);
-    });
-
-    wizardCoat.addEventListener('click', function () {
-      selectWizardAttributeColor(COAT_COLORS, wizardCoat, indexWizardCoat(), 'fill', 'coat-color');
-    });
-
-    wizardEyes.addEventListener('click', function () {
-      selectWizardAttributeColor(EYES_COLORS, wizardEyes, indexWizardEyes(), 'fill', 'eyes-color');
-    });
-
-    wizardFireball.addEventListener('click', function () {
-      selectWizardAttributeColor(FIREBALL_COLORS, wizardFireball, indexWizardFireball(), 'background', 'fireball-color');
     });
 
     dialogHandler.addEventListener('mousedown', function (evt) {
