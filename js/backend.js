@@ -10,18 +10,19 @@
 
     xhr.addEventListener('load', function () {
       if (xhr.status === 200) {
+        onError('', false);
         onLoad(xhr.response);
       } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText, true);
       }
     });
 
     xhr.addEventListener('error', function () {
-      onError('Произошла ошибка соединения');
+      onError('Произошла ошибка соединения', true);
     });
 
     xhr.addEventListener('timeout', function () {
-      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс', true);
     });
 
     xhr.timeout = 10000;
